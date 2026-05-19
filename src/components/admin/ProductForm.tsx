@@ -65,7 +65,7 @@ export function ProductForm({ product, categories, onClose, onSave }: ProductFor
 
       // 1. Save Product Details
       if (isEditing) {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('products')
           .update({
             name: formData.name,
@@ -79,7 +79,7 @@ export function ProductForm({ product, categories, onClose, onSave }: ProductFor
           .eq('id', productId)
         if (error) throw error
       } else {
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
           .from('products')
           .insert({
             name: formData.name,
@@ -114,12 +114,12 @@ export function ProductForm({ product, categories, onClose, onSave }: ProductFor
         if (isEditing && product?.product_images?.length > 0) {
           const oldPrimary = product.product_images.find((img: any) => img.is_primary)
           if (oldPrimary) {
-             await supabase.from('product_images').delete().eq('id', oldPrimary.id)
+             await (supabase as any).from('product_images').delete().eq('id', oldPrimary.id)
           }
         }
 
         // Insert new image record
-        const { error: imgError } = await supabase
+        const { error: imgError } = await (supabase as any)
           .from('product_images')
           .insert({
             product_id: productId,
@@ -167,7 +167,7 @@ export function ProductForm({ product, categories, onClose, onSave }: ProductFor
   const handleRemoveTag = (tagToRemove: string) => {
     setFormData({
       ...formData,
-      tags: formData.tags.filter(tag => tag !== tagToRemove)
+      tags: formData.tags.filter((tag: string) => tag !== tagToRemove)
     })
   }
 

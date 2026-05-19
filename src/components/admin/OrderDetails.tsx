@@ -20,7 +20,7 @@ export function OrderDetails({ order, onClose, onUpdate }: OrderDetailsProps) {
 
   const handleUpdate = async () => {
     setIsUpdating(true)
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from('orders')
       .update({
         order_status: orderStatus,

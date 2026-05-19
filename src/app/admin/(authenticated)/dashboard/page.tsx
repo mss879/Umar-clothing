@@ -21,7 +21,7 @@ export default async function DashboardPage() {
 
   // Total revenue (approximate sum)
   const { data: revenueData } = await supabase.from('orders').select('total_amount').neq('order_status', 'cancelled')
-  const totalRevenue = revenueData?.reduce((acc, order) => acc + Number(order.total_amount), 0) || 0
+  const totalRevenue = (revenueData as any[])?.reduce((acc, order) => acc + Number(order.total_amount), 0) || 0
 
   return (
     <div className="space-y-6 max-w-[1200px]">
@@ -137,7 +137,7 @@ export default async function DashboardPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#F0EBE1]">
-                  {recentOrders?.map((order) => (
+                  {(recentOrders as any[])?.map((order) => (
                     <tr key={order.id} className="hover:bg-[#FCFAF8] transition-colors">
                       <td className="px-6 py-4">
                         <p className="font-semibold text-[#3B302B]">#{order.id.split('-')[0].toUpperCase()}</p>

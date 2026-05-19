@@ -49,13 +49,13 @@ export function PromotionForm({ promotion, onClose, onSave }: PromotionFormProps
       }
 
       if (isEditing) {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('promotions')
           .update(dataToSave)
           .eq('id', promotion.id)
         if (error) throw error
       } else {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('promotions')
           .insert(dataToSave)
         if (error) throw error

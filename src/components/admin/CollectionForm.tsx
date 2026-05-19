@@ -66,14 +66,12 @@ export function CollectionForm({ collection, onClose, onSave }: CollectionFormPr
       }
 
       if (isEditing) {
-        const { error } = await supabase
-          .from('collections')
+        const { error } = await (supabase as any).from('collections')
           .update(collectionData)
           .eq('id', collection.id)
         if (error) throw error
       } else {
-        const { error } = await supabase
-          .from('collections')
+        const { error } = await (supabase as any).from('collections')
           .insert(collectionData)
         if (error) throw error
       }

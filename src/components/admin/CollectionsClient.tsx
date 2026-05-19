@@ -79,6 +79,7 @@ export function CollectionsClient({ initialCollections }: { initialCollections: 
         columns={columns}
         data={initialCollections}
         onRowClick={handleEdit}
+        keyExtractor={(row: any) => row.id}
       />
 
       {isFormOpen && (

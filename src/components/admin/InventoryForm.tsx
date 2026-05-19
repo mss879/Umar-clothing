@@ -29,7 +29,7 @@ export function InventoryForm({ inventory, products, onClose, onSave }: Inventor
 
     try {
       if (isEditing) {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('inventory')
           .update({
             product_id: formData.product_id,
@@ -41,7 +41,7 @@ export function InventoryForm({ inventory, products, onClose, onSave }: Inventor
           .eq('id', inventory.id)
         if (error) throw error
       } else {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from('inventory')
           .insert({
             product_id: formData.product_id,

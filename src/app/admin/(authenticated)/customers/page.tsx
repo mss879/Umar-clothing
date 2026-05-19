@@ -14,14 +14,15 @@ export default async function CustomersPage() {
     .eq('role', 'customer')
     .order('created_at', { ascending: false })
 
-  const processedCustomers = customers?.map((customer) => {
-    const totalOrders = customer.orders.length
-    const totalSpent = customer.orders.reduce((sum, order) => sum + Number(order.total_amount), 0)
+  const processedCustomers = (customers as any[])?.map((customer) => {
+    const orders = customer.orders || []
+    const totalOrders = orders.length
+    const totalSpent = orders.reduce((sum: number, order: any) => sum + Number(order.total_amount), 0)
     
     // Find the latest order date
     let lastOrderDate = null
     if (totalOrders > 0) {
-      const dates = customer.orders.map(o => new Date(o.created_at).getTime())
+      const dates = orders.map((o: any) => new Date(o.created_at).getTime())
       lastOrderDate = new Date(Math.max(...dates))
     }
 
